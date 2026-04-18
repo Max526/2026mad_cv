@@ -198,14 +198,14 @@
     /* 影片區塊設定 */
     .hero-right {
       height: 450px;
-      position: relative; /* 讓聲音按鈕可以相對於這裡定位 */
+      position: relative;
       border-radius: 16px;
       overflow: hidden; 
       animation: fadeIn 2s ease-out forwards;
       opacity: 0;
       animation-delay: 1.2s;
       transition: box-shadow 0.5s;
-      background-color: rgba(6, 7, 12, 0.5); /* 填補直式影片兩側的空白 */
+      background-color: rgba(6, 7, 12, 0.5); 
     }
 
     .hero-right:hover {
@@ -221,10 +221,9 @@
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: contain; /* 保證影片 100% 完整不裁切 */
+      object-fit: contain;
     }
 
-    /* ！！聲音開關按鈕的外觀！！ */
     .sound-toggle-btn {
       position: absolute;
       bottom: 20px;
@@ -321,9 +320,7 @@
     .span-2 { grid-column: span 2; }
     .span-3 { grid-column: span 3; }
 
-    .clickable-img {
-      cursor: zoom-in;
-      transition: transform 0.3s;
+    .content-img {
       width: 100%;
       border-radius: 8px;
       border: 1px solid rgba(255,255,255,0.1);
@@ -346,17 +343,90 @@
       margin-bottom: 0;
     }
 
-    .img-gallery {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr); 
-      gap: 15px;
+    /* ================= 幻燈片 (Slideshow) 樣式 ================= */
+    .slideshow-container {
+      position: relative;
+      width: 100%;
       margin-bottom: 15px;
-    }
-    .img-gallery img {
-      height: 250px; 
-      margin-bottom: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
     }
 
+    .mySlides {
+      display: none; 
+    }
+
+    .slideshow-img {
+      height: 300px; 
+      width: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* 左右切換按鈕 */
+    .prev-btn, .next-btn {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: auto;
+      padding: 12px 18px;
+      margin-top: -22px;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      transition: 0.3s ease;
+      background-color: rgba(0,0,0,0.4);
+      user-select: none;
+      border-radius: 0 3px 3px 0;
+    }
+
+    .next-btn {
+      right: 0;
+      border-radius: 3px 0 0 3px;
+    }
+
+    .prev-btn:hover, .next-btn:hover {
+      background-color: #3FA2F6;
+      color: black;
+    }
+
+    /* 底部圓點 */
+    .dot-container {
+      text-align: center;
+      position: absolute;
+      bottom: 15px;
+      width: 100%;
+    }
+
+    .dot {
+      cursor: pointer;
+      height: 10px;
+      width: 10px;
+      margin: 0 5px;
+      background-color: rgba(255,255,255,0.4);
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+    }
+
+    .active-dot, .dot:hover {
+      background-color: #3FA2F6;
+      box-shadow: 0 0 8px #3FA2F6;
+    }
+
+    /* 淡入淡出動畫 */
+    .fade {
+      animation-name: slideFade;
+      animation-duration: 0.8s;
+    }
+
+    @keyframes slideFade {
+      from {opacity: 0.4} 
+      to {opacity: 1}
+    }
+
+    /* ================= 列表樣式 ================= */
     .cert-list {
       list-style: none;
       padding: 0;
@@ -380,24 +450,7 @@
       color: white;
     }
 
-    /* ================= 6. 燈箱 (Lightbox) ================= */
-    #lightbox {
-      display: none; 
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #lightbox img {
-      max-width: 90%;
-      max-height: 90vh;
-      border-radius: 8px;
-    }
-
-    /* ================= 7. 動畫與手機版 RWD ================= */
+    /* ================= 動畫與手機版 RWD ================= */
     @keyframes fadeIn { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     @keyframes fadeInTop { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     @keyframes backgroundZoom { from { background-size: 80%; } to { background-size: 100%; } }
@@ -414,7 +467,7 @@
         margin-bottom: 50px;
         height: 60vh; 
       }
-      .flood-project-gallery, .img-gallery {
+      .flood-project-gallery {
         grid-template-columns: 1fr; 
       }
       nav { display: none; }
@@ -466,7 +519,7 @@
 
     <section id="about" class="content-section">
       <div style="text-align: center; margin-bottom: 40px;">
-        <img src="D778D5A8-3CE6-4047-8955-B010EFF0659F.png" alt="Profile" class="clickable-img" style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 4px solid #3FA2F6;">
+        <img src="D778D5A8-3CE6-4047-8955-B010EFF0659F.png" alt="Profile" class="content-img" style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 4px solid #3FA2F6; object-position: center 10%;">
       </div>
       <h2 class="section-title">About <span>Me</span></h2>
       <div class="about-grid">
@@ -494,8 +547,8 @@
         <div class="project-card span-2">
           <h4>🌿 大豆黃化與淹水影像辨識</h4>
           <div class="flood-project-gallery">
-            <img src="evidence_test_001.png" alt="U-Net 辨識成果架構圖" class="clickable-img">
-            <img src="task-6632_Comparison.png" alt="U-Net 淹水成效對比圖" class="clickable-img">
+            <img src="evidence_test_001.png" alt="U-Net 辨識成果架構圖" class="content-img">
+            <img src="task-6632_Comparison.png" alt="U-Net 淹水成效對比圖" class="content-img">
           </div>
           <p style="flex-grow: 1;">基於 U-Net 模型開發，將辨識出的泛黃區域以紅色精確標示，提升人工覆核百分比的合理性。</p>
           <p style="color: #3FA2F6; font-size: 0.8rem; margin-top: 10px;">#AI #U-Net</p>
@@ -503,17 +556,37 @@
 
         <div class="project-card">
           <h4>🌍 原住民文化小百科網站</h4>
-          <img src="image.png" alt="Website" class="clickable-img main-img">
+          <img src="image.png" alt="Website" class="content-img main-img">
           <p style="flex-grow: 1;">從設計到開發的完整互動式網站，展示台灣原住民文化豐富的資訊與視覺美感。</p>
           <p style="color: #3FA2F6; font-size: 0.8rem; margin-top: 10px;">#WebDesign #Frontend</p>
         </div>
 
         <div class="project-card span-3">
           <h4>✨ 活動經歷</h4>
-          <div class="img-gallery">
-            <img src="IMG_2043.JPG" alt="Activity 1" class="clickable-img">
-            <img src="IMG_8893.JPG" alt="Activity 2" class="clickable-img">
-            <img src="IMG_8613.JPG" alt="Activity 3" class="clickable-img">
+          
+          <div class="slideshow-container">
+            <div class="mySlides fade">
+              <img src="IMG_8893.JPG" alt="Activity 1" class="slideshow-img">
+            </div>
+            <div class="mySlides fade">
+              <img src="IMG_2765.jpg" alt="Activity 2" class="slideshow-img">
+            </div>
+            <div class="mySlides fade">
+              <img src="59193C2B-4BD2-4411-A219-7D04B6FC6629.JPG" alt="Activity 3" class="slideshow-img">
+            </div>
+            <div class="mySlides fade">
+              <img src="IMG_2043.JPG" alt="Activity 4" class="slideshow-img">
+            </div>
+
+            <a class="prev-btn" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next-btn" onclick="plusSlides(1)">&#10095;</a>
+
+            <div class="dot-container">
+              <span class="dot" onclick="currentSlide(1)"></span>
+              <span class="dot" onclick="currentSlide(2)"></span>
+              <span class="dot" onclick="currentSlide(3)"></span>
+              <span class="dot" onclick="currentSlide(4)"></span>
+            </div>
           </div>
           <p style="flex-grow: 1;">參與各項校內外專題講座與學術活動，拓展跨領域視野並累積實務經驗。</p>
           <p style="color: #3FA2F6; font-size: 0.8rem; margin-top: 10px;">#Activity #Experience</p>
@@ -560,39 +633,68 @@
 
   </main>
 
-  <div id="lightbox"><img id="lightbox-img" src=""></div>
-
   <script>
+    // ===== 幻燈片全域邏輯 =====
+    let slideIndex = 1;
+
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("dot");
+      
+      if (n > slides.length) {slideIndex = 1}    
+      if (n < 1) {slideIndex = slides.length}
+      
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active-dot", "");
+      }
+      
+      if(slides.length > 0) {
+        slides[slideIndex-1].style.display = "block";  
+        dots[slideIndex-1].className += " active-dot";
+      }
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       
+      // 初始化幻燈片 (顯示第一張)
+      showSlides(slideIndex);
+
       // 🔊 聲音開關邏輯
       const video = document.getElementById('heroVideo');
       const soundBtn = document.getElementById('soundBtn');
 
-      soundBtn.addEventListener('click', () => {
-        if (video.muted) {
-          video.muted = false; 
-          soundBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>'; 
-        } else {
-          video.muted = true;  
-          soundBtn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>'; 
-        }
-      });
+      if(soundBtn && video) {
+        soundBtn.addEventListener('click', () => {
+          if (video.muted) {
+            video.muted = false; 
+            soundBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>'; 
+          } else {
+            video.muted = true;  
+            soundBtn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>'; 
+          }
+        });
+      }
 
       // 打字機
       const h3 = document.querySelector('#hero h3');
-      const text = h3.textContent; h3.textContent = '';
-      let i = 0;
-      function type() { if(i < text.length) { h3.textContent += text.charAt(i); i++; setTimeout(type, 100); } else { h3.innerHTML = text + '<span style="animation:blink 1s infinite">|</span>'; } }
-      setTimeout(type, 1400);
-
-      // 燈箱 (點擊放大)
-      const lb = document.getElementById('lightbox');
-      const lbImg = document.getElementById('lightbox-img');
-      document.querySelectorAll('.clickable-img').forEach(img => {
-        img.addEventListener('click', () => { lb.style.display = 'flex'; lbImg.src = img.src; });
-      });
-      lb.addEventListener('click', () => lb.style.display = 'none');
+      if(h3) {
+        const text = h3.textContent; h3.textContent = '';
+        let i = 0;
+        function type() { if(i < text.length) { h3.textContent += text.charAt(i); i++; setTimeout(type, 100); } else { h3.innerHTML = text + '<span style="animation:blink 1s infinite">|</span>'; } }
+        setTimeout(type, 1400);
+      }
 
       // 滾動監聽與標頭
       const header = document.getElementById('header');
