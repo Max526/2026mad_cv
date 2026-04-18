@@ -11,18 +11,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Setup .NET
+      - name: Setup .NET 10
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'   # ✅ 改成穩定版
+          dotnet-version: '10.0.x'
 
       - name: Restore
-        run: dotnet restore
+        run: dotnet restore 2026mad_cv/2026mad_cv.csproj
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build 2026mad_cv/2026mad_cv.csproj --configuration Release --no-restore
 
       - name: Publish
         run: dotnet publish 2026mad_cv/2026mad_cv.csproj -c Release -o ./publish
@@ -51,7 +52,7 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_92C657B77B2D4077BA057509AFE3A839 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_7FF2C2D206BA42329F35387D7F0C4796 }}
 
-      - name: Deploy to Azure Web App
+      - name: Deploy
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'Githubmad'
